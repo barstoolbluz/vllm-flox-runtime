@@ -1,0 +1,69 @@
+{
+  "lockfile-version": 1,
+  "manifest": {
+    "version": 1,
+    "install": {
+      "vllm-python312-cuda12_9-sm120": {
+        "pkg-path": "flox/vllm-python312-cuda12_9-sm120",
+        "pkg-group": "vllm-python312-cuda12_9-sm120",
+        "systems": [
+          "x86_64-linux"
+        ]
+      }
+    },
+    "vars": {
+      "HF_HOME": "/home/daedalus/dev/vllm-runtime/models",
+      "PROMETHEUS_MULTIPROC_DIR": "/tmp/vllm-prometheus",
+      "VLLM_API_KEY": "sk-vllm-local-dev",
+      "VLLM_HOST": "127.0.0.1",
+      "VLLM_LOGGING_LEVEL": "WARNING",
+      "VLLM_MODEL": "meta-llama/Llama-3.1-8B-Instruct",
+      "VLLM_PIPELINE_PARALLEL_SIZE": "1",
+      "VLLM_PORT": "8000",
+      "VLLM_TENSOR_PARALLEL_SIZE": "1"
+    },
+    "hook": {
+      "on-activate": "  # Create HuggingFace model cache directory\n  mkdir -p \"$FLOX_ENV_PROJECT/models\"\n\n  # Create Prometheus multiprocess directory\n  mkdir -p \"$PROMETHEUS_MULTIPROC_DIR\"\n\n  # Validate config.yaml exists\n  if [ ! -f \"$FLOX_ENV_PROJECT/config.yaml\" ]; then\n    echo \"WARNING: $FLOX_ENV_PROJECT/config.yaml not found\"\n    echo \"  The vllm service will not start without it.\"\n  fi\n"
+    },
+    "profile": {},
+    "options": {},
+    "services": {
+      "vllm": {
+        "command": "vllm serve $VLLM_MODEL --config $FLOX_ENV_PROJECT/config.yaml --tensor-parallel-size $VLLM_TENSOR_PARALLEL_SIZE --pipeline-parallel-size $VLLM_PIPELINE_PARALLEL_SIZE"
+      }
+    }
+  },
+  "packages": [
+    {
+      "attr_path": "vllm-python312-cuda12_9-sm120",
+      "broken": false,
+      "derivation": "/nix/store/ds9hslfydacmkr33l6dpmmw8zd56ii5b-python3.12-vllm-python312-cuda12_9-sm120-0.15.1.drv",
+      "description": "vLLM 0.15.1 for NVIDIA RTX 5090/RTX PRO 6000 (SM120) [CUDA 12.9]",
+      "install_id": "vllm-python312-cuda12_9-sm120",
+      "license": "Apache-2.0",
+      "locked_url": "git@github.com:barstoolbluz/build-vllm.git?rev=6d1cca68a920692f649793fc0b0a9f233b54cb60",
+      "name": "python3.12-vllm-python312-cuda12_9-sm120-0.15.1",
+      "pname": "vllm-python312-cuda12_9-sm120",
+      "rev": "6d1cca68a920692f649793fc0b0a9f233b54cb60",
+      "rev_count": 5,
+      "rev_date": "2026-02-24T17:37:10Z",
+      "scrape_date": "2026-02-24T18:16:07.568189194Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.15.1",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "dist": "/nix/store/ry2d24a87nnqnbv1drbsacazwfhzf2i3-python3.12-vllm-python312-cuda12_9-sm120-0.15.1-dist",
+        "out": "/nix/store/9dbzn09ba1g2qjzsn6vplq6sjf48fhg3-python3.12-vllm-python312-cuda12_9-sm120-0.15.1"
+      },
+      "system": "x86_64-linux",
+      "group": "vllm-python312-cuda12_9-sm120",
+      "priority": 5
+    }
+  ]
+}
