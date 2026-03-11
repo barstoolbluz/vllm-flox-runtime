@@ -15,12 +15,15 @@ version = 1
 ##  $ flox show gum     <- show all versions of a package
 ## -------------------------------------------------------------------
 [install]
-vllm-python312-cuda12_9-sm120.pkg-path = "flox/vllm-python312-cuda12_9-sm120"
-vllm-python312-cuda12_9-sm120.systems = ["x86_64-linux"]
-vllm-python312-cuda12_9-sm120.pkg-group = "vllm-python312-cuda12_9-sm120"
+#vllm-python312-cuda12_9-sm120.pkg-path = "flox/vllm-python312-cuda12_9-sm120"
+#vllm-python312-cuda12_9-sm120.systems = ["x86_64-linux"]
+#vllm-python312-cuda12_9-sm120.pkg-group = "vllm-python312-cuda12_9-sm120"
 vllm-flox-runtime.pkg-path = "flox/vllm-flox-runtime"
 vllm-flox-runtime.systems = ["x86_64-linux"]
 vllm-flox-runtime.pkg-group = "vllm-flox-runtime"
+vllm.pkg-path = "flox-cuda/python3Packages.vllm"
+vllm.systems = ["x86_64-linux"]
+vllm.pkg-group = "vllm"
 # gum.pkg-path = "gum"
 # gum.version = "^0.14.5"
 

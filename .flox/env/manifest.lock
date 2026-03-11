@@ -3,23 +3,23 @@
   "manifest": {
     "version": 1,
     "install": {
+      "vllm": {
+        "pkg-path": "flox-cuda/python3Packages.vllm",
+        "pkg-group": "vllm",
+        "systems": [
+          "x86_64-linux"
+        ]
+      },
       "vllm-flox-runtime": {
         "pkg-path": "flox/vllm-flox-runtime",
         "pkg-group": "vllm-flox-runtime",
         "systems": [
           "x86_64-linux"
         ]
-      },
-      "vllm-python312-cuda12_9-sm120": {
-        "pkg-path": "flox/vllm-python312-cuda12_9-sm120",
-        "pkg-group": "vllm-python312-cuda12_9-sm120",
-        "systems": [
-          "x86_64-linux"
-        ]
       }
     },
     "hook": {
-      "on-activate": "  # Model\n  export VLLM_MODEL=\"${VLLM_MODEL:-Llama-3.1-8B-Instruct}\"\n  export VLLM_MODEL_ORG=\"${VLLM_MODEL_ORG:-meta-llama}\"\n  export VLLM_MODEL_SOURCES=\"${VLLM_MODEL_SOURCES:-local,hf-cache,hf-hub}\"\n  export VLLM_MODELS_DIR=\"${VLLM_MODELS_DIR:-$FLOX_ENV_PROJECT/models}\"\n  export VLLM_SERVED_MODEL_NAME=\"${VLLM_SERVED_MODEL_NAME:-$VLLM_MODEL}\"\n\n  # Server\n  export VLLM_HOST=\"${VLLM_HOST:-127.0.0.1}\"\n  export VLLM_PORT=\"${VLLM_PORT:-8000}\"\n  export VLLM_API_KEY=\"${VLLM_API_KEY:-sk-vllm-local-dev}\"\n\n  # Engine tuning\n  export VLLM_TENSOR_PARALLEL_SIZE=\"${VLLM_TENSOR_PARALLEL_SIZE:-1}\"\n  export VLLM_PIPELINE_PARALLEL_SIZE=\"${VLLM_PIPELINE_PARALLEL_SIZE:-1}\"\n  export VLLM_PREFIX_CACHING=\"${VLLM_PREFIX_CACHING:-false}\"\n  export VLLM_KV_CACHE_DTYPE=\"${VLLM_KV_CACHE_DTYPE:-auto}\"\n  export VLLM_MAX_MODEL_LEN=\"${VLLM_MAX_MODEL_LEN:-4096}\"\n  export VLLM_MAX_NUM_BATCHED_TOKENS=\"${VLLM_MAX_NUM_BATCHED_TOKENS:-4096}\"\n\n  # Logging / metrics\n  export VLLM_LOGGING_LEVEL=\"${VLLM_LOGGING_LEVEL:-WARNING}\"\n  export PROMETHEUS_MULTIPROC_DIR=\"${PROMETHEUS_MULTIPROC_DIR:-/tmp/vllm-prometheus}\"\n\n  mkdir -p \"$VLLM_MODELS_DIR\"\n  mkdir -p \"$PROMETHEUS_MULTIPROC_DIR\"\n"
+      "on-activate": "  # Model\n  export VLLM_MODEL=\"${VLLM_MODEL:-Llama-3.1-8B-Instruct}\"\n  export VLLM_MODEL_ORG=\"${VLLM_MODEL_ORG:-meta-llama}\"\n  export VLLM_MODEL_SOURCES=\"${VLLM_MODEL_SOURCES:-local,hf-cache,hf-hub}\"\n  export VLLM_MODELS_DIR=\"${VLLM_MODELS_DIR:-$FLOX_ENV_PROJECT/models}\"\n  export VLLM_SERVED_MODEL_NAME=\"${VLLM_SERVED_MODEL_NAME:-$VLLM_MODEL}\"\n\n  # Server\n  export VLLM_HOST=\"${VLLM_HOST:-0.0.0.0}\"\n  export VLLM_PORT=\"${VLLM_PORT:-8000}\"\n  export VLLM_API_KEY=\"${VLLM_API_KEY:-sk-vllm-local-dev}\"\n\n  # Engine tuning\n  export VLLM_TENSOR_PARALLEL_SIZE=\"${VLLM_TENSOR_PARALLEL_SIZE:-1}\"\n  export VLLM_PIPELINE_PARALLEL_SIZE=\"${VLLM_PIPELINE_PARALLEL_SIZE:-1}\"\n  export VLLM_PREFIX_CACHING=\"${VLLM_PREFIX_CACHING:-false}\"\n  export VLLM_KV_CACHE_DTYPE=\"${VLLM_KV_CACHE_DTYPE:-auto}\"\n  export VLLM_MAX_MODEL_LEN=\"${VLLM_MAX_MODEL_LEN:-4096}\"\n  export VLLM_MAX_NUM_BATCHED_TOKENS=\"${VLLM_MAX_NUM_BATCHED_TOKENS:-4096}\"\n\n  # Logging / metrics\n  export VLLM_LOGGING_LEVEL=\"${VLLM_LOGGING_LEVEL:-WARNING}\"\n  export PROMETHEUS_MULTIPROC_DIR=\"${PROMETHEUS_MULTIPROC_DIR:-/tmp/vllm-prometheus}\"\n\n  mkdir -p \"$VLLM_MODELS_DIR\"\n  mkdir -p \"$PROMETHEUS_MULTIPROC_DIR\"\n"
     },
     "profile": {},
     "options": {},
@@ -31,52 +31,21 @@
   },
   "packages": [
     {
-      "attr_path": "vllm-flox-runtime",
+      "attr_path": "python3Packages.vllm",
       "broken": false,
-      "derivation": "/nix/store/mnshlrpp3g1qwyhwldr0csms3vgrmzvw-vllm-flox-runtime-0.9.1.drv",
-      "description": "Runtime scripts for vLLM model serving with Flox",
-      "install_id": "vllm-flox-runtime",
-      "locked_url": "git@github.com:barstoolbluz/build-vllm-flox-runtime.git?rev=c8af64e8b6a90aaee7f1efceef8c7a7fb807f795",
-      "name": "vllm-flox-runtime-0.9.1",
-      "pname": "vllm-flox-runtime",
-      "rev": "c8af64e8b6a90aaee7f1efceef8c7a7fb807f795",
-      "rev_count": 3,
-      "rev_date": "2026-03-03T19:07:59Z",
-      "scrape_date": "2026-03-03T19:08:30.138344443Z",
-      "stabilities": [
-        "unstable",
-        "staging",
-        "stable"
-      ],
-      "unfree": false,
-      "version": "0.9.1",
-      "outputs_to_install": [
-        "out"
-      ],
-      "outputs": {
-        "out": "/nix/store/f9hn2wq2ajhy4p99hqalfknpdhp9l19z-vllm-flox-runtime-0.9.1"
-      },
-      "system": "x86_64-linux",
-      "group": "vllm-flox-runtime",
-      "priority": 5
-    },
-    {
-      "attr_path": "vllm-python312-cuda12_9-sm120",
-      "broken": false,
-      "derivation": "/nix/store/ds9hslfydacmkr33l6dpmmw8zd56ii5b-python3.12-vllm-python312-cuda12_9-sm120-0.15.1.drv",
-      "description": "vLLM 0.15.1 for NVIDIA RTX 5090/RTX PRO 6000 (SM120) [CUDA 12.9]",
-      "install_id": "vllm-python312-cuda12_9-sm120",
+      "derivation": "/nix/store/2148pqyg9vbv408rg8wbwdahlqz814hj-python3.13-vllm-0.15.1.drv",
+      "description": "High-throughput and memory-efficient inference and serving engine for LLMs",
+      "install_id": "vllm",
       "license": "Apache-2.0",
-      "locked_url": "git@github.com:barstoolbluz/build-vllm.git?rev=6d1cca68a920692f649793fc0b0a9f233b54cb60",
-      "name": "python3.12-vllm-python312-cuda12_9-sm120-0.15.1",
-      "pname": "vllm-python312-cuda12_9-sm120",
-      "rev": "6d1cca68a920692f649793fc0b0a9f233b54cb60",
-      "rev_count": 5,
-      "rev_date": "2026-02-24T17:37:10Z",
-      "scrape_date": "2026-03-03T17:10:50.350683813Z",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=9dcb002ca1690658be4a04645215baea8b95f31d",
+      "name": "python3.13-vllm-0.15.1",
+      "pname": "vllm",
+      "rev": "9dcb002ca1690658be4a04645215baea8b95f31d",
+      "rev_count": 960399,
+      "rev_date": "2026-03-08T09:52:19Z",
+      "scrape_date": "2026-03-11T21:51:45.800083401Z",
       "stabilities": [
-        "unstable",
-        "staging"
+        "unstable"
       ],
       "unfree": false,
       "version": "0.15.1",
@@ -84,11 +53,41 @@
         "out"
       ],
       "outputs": {
-        "dist": "/nix/store/ry2d24a87nnqnbv1drbsacazwfhzf2i3-python3.12-vllm-python312-cuda12_9-sm120-0.15.1-dist",
-        "out": "/nix/store/9dbzn09ba1g2qjzsn6vplq6sjf48fhg3-python3.12-vllm-python312-cuda12_9-sm120-0.15.1"
+        "dist": "/nix/store/263gfwbgnv562kij0v24yxiam9haqzmp-python3.13-vllm-0.15.1-dist",
+        "out": "/nix/store/m7f0g7qnlijhgm8fsadv7lkmn090bv9s-python3.13-vllm-0.15.1"
       },
       "system": "x86_64-linux",
-      "group": "vllm-python312-cuda12_9-sm120",
+      "group": "vllm",
+      "priority": 5
+    },
+    {
+      "attr_path": "vllm-flox-runtime",
+      "broken": false,
+      "derivation": "/nix/store/z0ry7dv6ljpd77i907xxhinipp4zs6gl-vllm-flox-runtime-0.9.3.drv",
+      "description": "Runtime scripts for vLLM model serving with Flox",
+      "install_id": "vllm-flox-runtime",
+      "locked_url": "git@github.com:barstoolbluz/build-vllm-flox-runtime.git?rev=443aaea7ea79f48f354dc7caaf322473e58da4ce",
+      "name": "vllm-flox-runtime-0.9.3",
+      "pname": "vllm-flox-runtime",
+      "rev": "443aaea7ea79f48f354dc7caaf322473e58da4ce",
+      "rev_count": 10,
+      "rev_date": "2026-03-11T21:51:15Z",
+      "scrape_date": "2026-03-11T21:51:45.800193446Z",
+      "stabilities": [
+        "unstable",
+        "staging",
+        "stable"
+      ],
+      "unfree": false,
+      "version": "0.9.3",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/wrji20j5nak8skki20nb1k81ib688hcp-vllm-flox-runtime-0.9.3"
+      },
+      "system": "x86_64-linux",
+      "group": "vllm-flox-runtime",
       "priority": 5
     }
   ]
