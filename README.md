@@ -42,6 +42,49 @@ curl http://127.0.0.1:8000/v1/chat/completions \
   }'
 ```
 
+## Examples
+
+The `examples/` directory contains self-contained demo scripts that start a vLLM server, run smoke tests (health, models, completions, chat), and shut down cleanly.
+
+### Flox-bundled model (no download required)
+
+```bash
+flox activate -- ./examples/demo-flox-model.sh
+```
+
+Serves `microsoft/Phi-4-mini-instruct-FP8-TORCHAO` from the flox package. No network access or local model download needed — the model is installed as a flox package and resolved via the `flox` source.
+
+### HuggingFace cache models
+
+These demos serve models from `~/.cache/huggingface/hub/`. Download the models first if they're not already cached:
+
+```bash
+# Download models (one-time)
+pip install huggingface-hub
+huggingface-cli download google/gemma-3-4b-it
+huggingface-cli download mistralai/Ministral-3-3B-Instruct-2512
+```
+
+Then run:
+
+```bash
+# Google Gemma 3 4B IT (~8 GB VRAM)
+flox activate -- ./examples/demo-gemma3-4b.sh
+
+# Mistral Ministral 3B Instruct (~9 GB VRAM)
+flox activate -- ./examples/demo-ministral-3b.sh
+```
+
+### Customizing demos
+
+All demos accept `VLLM_PORT` to override the default port:
+
+```bash
+VLLM_PORT=8800 flox activate -- ./examples/demo-gemma3-4b.sh
+```
+
+To adapt a demo for a different model, copy one of the HF cache scripts and change `VLLM_MODEL`, `VLLM_MODEL_ORG`, and the VRAM estimate in the header.
+
 ## Architecture
 
 The service command chains three scripts in a pipeline:
@@ -684,6 +727,7 @@ vllm-runtime/
   .flox/env/manifest.toml   # Flox manifest (packages, on-activate hook, service)
   .flox/cache/vllm-config.yaml  # vLLM server config (auto-copied from package on first run)
   models/                    # Model cache (created on activation)
+  examples/                  # Demo scripts (flox-bundled and HF-cached models)
   README.md                  # This file
 ```
 
